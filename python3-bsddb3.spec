@@ -10,6 +10,7 @@ Source0:	http://pypi.python.org/packages/source/b/bsddb3/bsddb3-%{version}.tar.g
 # Source0-md5:	8f0773f5de160c39263f5af9ead1d0dc
 URL:		http://www.argo.es/~jcea/programacion/pybsddb.htm
 BuildRequires:	db-devel >= 4.1.25
+BuildRequires:  python3
 BuildRequires:	python3-devel
 BuildRequires:	rpm-build-macros >= 1.507
 %pyrequires_eq	python3-modules
