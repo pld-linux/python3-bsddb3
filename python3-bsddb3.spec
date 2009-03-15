@@ -11,9 +11,9 @@ Source0:	http://pypi.python.org/packages/source/b/bsddb3/bsddb3-%{version}.tar.g
 URL:		http://www.argo.es/~jcea/programacion/pybsddb.htm
 BuildRequires:	db-devel >= 4.1.25
 BuildRequires:  python3
+BuildRequires:	python3-modules
 BuildRequires:	python3-devel
 BuildRequires:	rpm-build-macros >= 1.507
-%pyrequires_eq	python3-modules
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -39,14 +39,14 @@ załączonej dokumentacji lub na stronie WWW.
 %setup -q -n %{pname}-%{version}
 
 %build
-env CFLAGS="%{rpmcflags}" python3.0 setup.py \
+env CFLAGS="%{rpmcflags}" python3 setup.py \
 	--berkeley-db-libdir=%{_libdir} \
 	--berkeley-db=%{_prefix} \
 	build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-python3.0 -- setup.py install \
+python3 -- setup.py install \
 	--root=$RPM_BUILD_ROOT \
 	--optimize=2
 
