@@ -1,9 +1,11 @@
+%bcond_with	tests	# enble tests
+#
 %define		pname	bsddb3
 Summary:	Python interface for BerkeleyDB
 Summary(pl.UTF-8):	Interfejs Pythona do BerkeleyDB
 Name:		python3-bsddb3
 Version:	4.7.6
-Release:	1
+Release:	2
 License:	BSD-like w/o adv. clause
 Group:		Development/Languages/Python
 Source0:	http://pypi.python.org/packages/source/b/bsddb3/bsddb3-%{version}.tar.gz
@@ -13,7 +15,7 @@ BuildRequires:	db-devel >= 4.1.25
 BuildRequires:  python3
 BuildRequires:	python3-modules
 BuildRequires:	python3-devel
-BuildRequires:	rpm-build-macros >= 1.507
+BuildRequires:	rpm-build-macros >= 1.523
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -44,6 +46,10 @@ env CFLAGS="%{rpmcflags}" python3 setup.py \
 	--berkeley-db=%{_prefix} \
 	build
 
+%if %{with tests}
+python3 test.py
+%endif
+
 %install
 rm -rf $RPM_BUILD_ROOT
 python3 -- setup.py install \
@@ -51,6 +57,7 @@ python3 -- setup.py install \
 	--optimize=2
 
 # shutup check-files
+rm -rf $RPM_BUILD_ROOT/%{py3_sitedir}/bsddb3/tests
 %py3_postclean
 
 %clean
@@ -60,8 +67,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc *.txt docs
 %dir %{py3_sitedir}/bsddb3
-%dir %{py3_sitedir}/bsddb3/tests
 %{py3_sitedir}/*.egg-info
 %{py3_sitedir}/bsddb3/*.py[co]
-%{py3_sitedir}/bsddb3/tests/*.py[co]
 %attr(755,root,root) %{py3_sitedir}/bsddb3/*.so
